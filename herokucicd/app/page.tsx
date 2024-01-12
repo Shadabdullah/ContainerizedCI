@@ -55,6 +55,17 @@ export default function Home() {
   };
 
   const timerHandler = () => {
+    function updateTime(){
+      setSeconds((prevSec)=>prevSec-1)
+
+    }
+   
+    const timeOutClear = timeInMin*60 * 1000
+    const intervalId = setInterval(updateTime , 1000 )
+
+    setTimeout(()=>{
+      clearInterval(intervalId)
+    },timeOutClear)
 
   };
 
