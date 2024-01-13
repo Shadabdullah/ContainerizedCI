@@ -56,7 +56,13 @@ export default function Home() {
 
   const timerHandler = () => {
     function updateTime(){
-      setSeconds((prevSec)=>prevSec-1)
+      if(seconds>0){
+         setSeconds((prevSec)=>prevSec-1)
+      }else{
+         setSeconds(60)
+         setMinutes((preMin)=>preMin-1)
+      }
+      
 
     }
    
