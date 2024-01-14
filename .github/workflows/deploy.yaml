@@ -21,7 +21,7 @@ jobs:
           
             heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
 
-            dockerfile_directory: ./
+            dockerfile_directory: ContainerizedCI/pomoscicd/Dockerfile
 
             dockerfile_name: Dockerfile
 
