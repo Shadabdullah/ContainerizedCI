@@ -101,7 +101,7 @@ export default function Home() {
             OK
           </button>
           <button
-            className=" h-7 w-24 rounded-sm bg-green-400 ml-4"
+            className=" h-7 w-24 rounded-sm bg-red-500 ml-4"
             onClick={timerHandler}
           >
             Start
