@@ -1,30 +1,31 @@
-name: Deploy to Production Server
+name: Deploy to Heroku
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-        - name : Checkout
-          uses : actions/checkout@v2
-          
-        - name : Build and Push to Production server 
-          uses : gonuit/heroku-docker-deploy@v1.3.3
-          with:
-            email: ${{secrets.HEROKU_EMAIL }}
-            heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          
-          
-            heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-            dockerfile_directory: ./pomoscicd/Dockerfile
+      - name: Set up Docker
+        uses: docker/setup-docker@v2
 
-            dockerfile_name: Dockerfile
+      - name: Build Docker Image
+        run: docker build -t registry.heroku.com/pomodoros/web .
 
-            docker_options: "--no-cache"
+      - name: Log in to Heroku Container Registry
+        run: heroku container:login
 
-            process_type: web
+      - name: Push Docker Image to Heroku Container Registry
+        run: docker push registry.heroku.com/pomodoros/web
+
+      - name: Release to Heroku
+        run: heroku container:release web -a pomodoros
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
