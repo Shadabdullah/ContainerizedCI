@@ -1,5 +1,3 @@
-name: Deploy to Heroku
-
 on:
   push:
     branches:
@@ -10,22 +8,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      - name: Checkout tools repo
+        uses: actions/checkout@v4
+        with:
+          repository:  ContainerizedCI/pomoscicd
+          path: pomoscicd
 
-      - name: Set up Docker
-        uses: docker/setup-docker@v2
+      - name: Build, Push and Release a Docker container to Heroku. # Your custom step name
+        uses: gonuit/heroku-docker-deploy@v1.3.3 # GitHub action name (leave it as it is).
+        with:
 
-      - name: Build Docker Image
-        run: docker build -t registry.heroku.com/pomodoros/web .
+          email: ${{ secrets.HEROKU_EMAIL }}
+          
+ 
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+   
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
 
-      - name: Log in to Heroku Container Registry
-        run: heroku container:login
+          dockerfile_directory: ./
 
-      - name: Push Docker Image to Heroku Container Registry
-        run: docker push registry.heroku.com/pomodoros/web
+          dockerfile_name: Dockerfile
 
-      - name: Release to Heroku
-        run: heroku container:release web -a pomodoros
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          docker_options: "--no-cache"
+
+          process_type: web
+    
