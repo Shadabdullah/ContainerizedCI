@@ -1,18 +1,21 @@
+name: Deploy to heroku.
+
+# Run workflow on every push to master branch.
 on:
   push:
-    branches:
-      - master
+    branches: [master]
 
+# Your workflows jobs.
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout tools repo
-        uses: actions/checkout@v4
-        with:
-          repository:  ContainerizedCI/pomoscicd
-          path: pomoscicd
+      # Check-out your repository.
+      - name: Checkout
+        uses: actions/checkout@v2
+
+
+### ⬇ IMPORTANT PART ⬇ ###
 
       - name: Build, Push and Release a Docker container to Heroku. # Your custom step name
         uses: gonuit/heroku-docker-deploy@v1.3.3 # GitHub action name (leave it as it is).
@@ -20,9 +23,9 @@ jobs:
 
           email: ${{ secrets.HEROKU_EMAIL }}
           
- 
+
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-   
+
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
 
           dockerfile_directory: ./
@@ -32,4 +35,4 @@ jobs:
           docker_options: "--no-cache"
 
           process_type: web
-    
+          
