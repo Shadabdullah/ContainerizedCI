@@ -73,7 +73,7 @@ export default function Home() {
       clearInterval(intervalId)
     },timeOutClear)
 
-  };
+  }; 
 
   return (
     <div className="flex justify-center items-center h-screen font-mono text-lg">
@@ -101,7 +101,7 @@ export default function Home() {
             OK
           </button>
           <button
-            className=" h-7 w-24 rounded-sm bg-red-500 ml-4"
+            className=" h-7 w-24 rounded-sm  ml-4 bg-red-700"
             onClick={timerHandler}
           >
             Start
