@@ -78,6 +78,8 @@ export default function Home() {
   return (
     <div className="flex justify-center items-center h-screen font-mono text-lg">
       <div className="  border bg-black flex-col w-1/2 h-1/2 rounded-sm shadow-sm flex  items-center justify-evenly">
+        <p>Ok now its seems workingssss
+        </p>
         <h2>Enter Duration time and break time </h2>
         <div className="flex justify-center items-center p-4 border-white ">
           <input
@@ -104,7 +106,7 @@ export default function Home() {
             className=" h-7 w-24 rounded-sm  ml-4 bg-red-700"
             onClick={timerHandler}
           >
-            Start
+            Starts
           </button>
         </div>
         <div className="flex-col justify-center  items-center flex space-y-4 border  w-1/2 h-52  border-red-100 text-4xl">
